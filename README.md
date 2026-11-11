@@ -11,8 +11,8 @@
   <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow">
 </p>
 
-- 当前版本：**v0.6.0（versionCode 27）**
-- 安装包：[Releases · v0.6.0](https://github.com/qmzzn114614/PaperInk/releases/download/v0.6.0/paperink-0.6.0-debug.apk)（debug 签名，Android 8.0+；APK 作为 Release 附件发布，不进 git 仓库）
+- 当前版本：**v0.6.1（versionCode 28）**
+- 安装包：[Releases · v0.6.1](https://github.com/qmzzn114614/PaperInk/releases/download/v0.6.1/paperink-0.6.1-debug.apk)（debug 签名，Android 8.0+；APK 作为 Release 附件发布，不进 git 仓库）
 - 开发与真机验证记录：[`PROJECT_STATE.md`](PROJECT_STATE.md)
 
 ---
@@ -57,7 +57,7 @@
 | 项目 | 值 |
 | --- | --- |
 | 应用 ID | `com.dsh.paperink` |
-| 当前版本 | v0.6.0（versionCode 27） |
+| 当前版本 | v0.6.1（versionCode 28） |
 | minSdk / targetSdk / compileSdk | 28 / 36 / 36 |
 | 语言与 UI | Kotlin 2.1.21 + Jetpack Compose（BOM 2025.05.01） |
 | PDF 渲染 | PDFium（`io.legere:pdfiumandroid:1.0.35`）分块渲染 + LRU Tile 缓存 |
@@ -122,7 +122,7 @@
 
 ## 下载与安装
 
-1. 从 GitHub Releases 页面（`https://github.com/qmzzn114614/PaperInk/releases/tag/v0.6.0`）下载 `paperink-0.6.0-debug.apk`；仓库里只保留 `dist/SHA256SUMS.txt` 用于校验。
+1. 从 GitHub Releases 页面（`https://github.com/qmzzn114614/PaperInk/releases/tag/v0.6.1`）下载 `paperink-0.6.1-debug.apk`；仓库里只保留 `dist/SHA256SUMS.txt` 用于校验。
 2. 把 APK 传到平板（数据线 / 微信文件传输 / 网盘均可），点击安装；系统提示「未知来源」时允许本次安装。
 3. 打开 App，点书架右上角「＋」导入第一本 PDF。
 
@@ -257,3 +257,5 @@ PaperInk/
 - 书架中的「删除」「清空」只删除 App 内部记录、封面与笔记，**不会动平板里的原始 PDF**。
 - debug APK 只适合个人侧载测试，不适合分发到应用商店；从非官方渠道获取的安装包请自行承担风险。
 - 插件为第三方代码，安装前请确认来源与签名；因安装第三方插件导致的问题与本项目无关。
+
+

@@ -12,8 +12,8 @@ android {
         applicationId = "com.dsh.paperink"
         minSdk = 28
         targetSdk = 36
-        versionCode = 27
-        versionName = "0.6.0"
+        versionCode = 28
+        versionName = "0.6.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -67,5 +67,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.test.ext.junit)
 }
+
 
 

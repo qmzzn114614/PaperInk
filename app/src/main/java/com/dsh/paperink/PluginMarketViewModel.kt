@@ -158,17 +158,20 @@ class PluginMarketViewModel(application: Application) : AndroidViewModel(applica
          * 插件市场索引地址（GitHub 静态托管）。
          *
          * 按顺序尝试多个镜像，任何一个能拿到 JSON 即可（国内直连 raw.githubusercontent 常被墙）：
-         * 1) jsDelivr（gcore 节点在国内通常可达）
-         * 2) gh-proxy.com 反代 raw
+         * 1) jsDelivr fastly 节点：实时跟随 GitHub 提交（v0.6.1 起改为首选；
+         *    gcore 国内节点是「周期同步镜像」，新提交要等同步，实测会滞后）；
+         * 2) jsDelivr gcore 节点：国内可达性好，但可能滞后；
+         * 3) gh-proxy.com 反代 raw：直取仓库内容，实时。
          */
         val MARKET_INDEX_URLS = listOf(
+            "https://fastly.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json",
             "https://gcore.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json",
             "https://gh-proxy.com/https://raw.githubusercontent.com/qmzzn114614/paperink-plugins/main/index.json",
         )
 
         /** 兼容旧代码/日志：第一个候选地址。 */
         const val MARKET_INDEX_URL =
-            "https://gcore.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json"
+            "https://fastly.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json"
     }
 }
 

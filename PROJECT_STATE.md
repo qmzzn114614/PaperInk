@@ -2251,3 +2251,32 @@ v0.5.1/v0.5.2 的铅笔是「逐颗粒撒点」：每条笔生成几千～几万
 - 插件市场索引已实测（PC）：jsDelivr 200，内容含 1 个插件「测试画星书签 1.0.0」，apkUrl 指向插件仓库 Release。
 - 上传方式：本机无 git/gh，改用 GitHub REST API（blobs → trees → commits → refs）+ Release 资产上传；Python 通过 truststore 走 Windows 证书库以绕过本机 TLS 中间证书问题。
 - 安全：本次全程使用用户临时提供的 classic PAT（repo 权限），已写入 .work/tools/ghtoken.txt（不入库）；上传完成后建议用户在 GitHub 设置中撤销该 token。
+### 38.7 平板端验证与市场下载链路（2026-11-11）
+
+- 平板上已覆盖安装发布版 `paperink-0.6.0-debug.apk`（versionCode 27，数据保留）。
+- 插件市场已连上真实索引：logcat `PaperInkPlugin: market loaded count=1`，列表显示「测试画星书签 v1.0.0 / PaperInk QA / 获取」（截图 `.work/shots/q2_market_real.png`），无断网兜底提示。
+- 发现：市场「获取」当前打开的是 GitHub Release 附件链接，平板上会弹系统「正在尝试启动 GitHub」关联提示；而 GitHub 附件域名在部分网络不可达。
+- 已实测替代直链可行：`https://gcore.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/plugins/paperink-plugin-test-1.0.0.apk` 在平板浏览器能正常弹出「下载文件（2.3MB）」（截图 `q4_jsdelivr_dl.png`）。
+- 待办：把 `paperink-plugins/index.json` 的 `apkUrl` 改为上述 jsDelivr 直链（本地 `.work/paperink-plugins/index.json` 已改好；因用户已按建议撤销 PAT，尚未推送）。推送后需 `https://purge.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json` 刷新 CDN 缓存。
+- 安全：上传用的 PAT 已由用户撤销，本地 `.work/tools/ghtoken.txt` 已删除。
+### 39. v0.6.1：插件市场索引换 fastly 首选（2026-11-11）
+
+**问题**：v0.6.0 首选索引 `gcore.jsdelivr.net`（国内镜像）是周期同步，实测 GitHub 新提交后它仍返回旧 JSON（连新 commit 都 404）；导致市场「获取」仍打开 GitHub Release 链接，而 GitHub 附件域名在平板网络不可达（浏览器卡在「正在下载…」）。
+
+**改动**
+- `app/src/main/java/com/dsh/paperink/PluginMarketViewModel.kt`：`MARKET_INDEX_URLS` 顺序改为
+  1) `https://fastly.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json`（实时、平板实测可达）
+  2) `https://gcore.jsdelivr.net/...`（国内兜底，可能滞后）
+  3) `https://gh-proxy.com/https://raw.githubusercontent.com/...`（直取仓库，实时）
+  `MARKET_INDEX_URL` 同步指向 fastly。
+- `dist/paperink-0.6.1-debug.apk`：48,751,001 B，sha256 `71c8e308d5286fd55a7e33e5492cdc638fae514756a116697893e46815217175`；`dist/SHA256SUMS.txt` 追加。
+- versionCode 27 → 28，versionName 0.6.0 → 0.6.1。
+
+**平板真机验证（v0.6.1）**
+- 覆盖安装成功，`versionCode=28 / versionName=0.6.1`，数据保留。
+- 插件市场加载真实索引：logcat `PaperInkPlugin: market loaded count=1`。
+- 点「获取」→ 浏览器直接弹出「下载文件 paperink-plugin-test-1.0.0.apk / 2.3MB / 安全下载」对话框（来源 jsDelivr 直链），不再出现「启动 GitHub」关联提示（截图 `.work/shots/qc_get_jsdelivr.png`）。
+- 对照证据：旧索引 URL（gcore）仍返回旧 apkUrl；fastly 与原 GitHub 内容一致；gh-proxy 反代也返回最新（截图 `q8_ghproxy.png`、`qa_fastly.png`）。
+
+**待发布**
+- GitHub 上的 Release v0.6.0 APK 仍是旧市场 URL 的版本；v0.6.1 源码与 APK 尚未推送（上传用 PAT 已撤销）。下次提供最小 token 或按 `docs/GITHUB_RELEASE_GUIDE.md` 手动发 0.6.1。
