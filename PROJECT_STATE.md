@@ -2280,3 +2280,11 @@ v0.5.1/v0.5.2 的铅笔是「逐颗粒撒点」：每条笔生成几千～几万
 
 **待发布**
 - GitHub 上的 Release v0.6.0 APK 仍是旧市场 URL 的版本；v0.6.1 源码与 APK 尚未推送（上传用 PAT 已撤销）。下次提供最小 token 或按 `docs/GITHUB_RELEASE_GUIDE.md` 手动发 0.6.1。
+### 39.1 发布结果（2026-11-11）
+
+- 仓库 `main` 新提交：`468727cdd3f8d04108eb6b5db19fba6a3daf2bab`（"PaperInk v0.6.1"，113 文件 / 5,283,129 B；APK 不打进 git 树）。
+- Release `v0.6.1`：https://github.com/qmzzn114614/PaperInk/releases/tag/v0.6.1
+  - 附件 `paperink-0.6.1-debug.apk` 48,751,001 B，GitHub digest `sha256:71c8e308d5286fd55a7e33e5492cdc638fae514756a116697893e46815217175`（与本地一致）。
+- README 已更新为 v0.6.1（versionCode 28）与 0.6.1 下载链接；`dist/SHA256SUMS.txt` 同时保留 0.6.0 / 0.6.1 两行。
+- 发布用 fine-grained PAT 仅给 `PaperInk` + `paperink-plugins` 两个仓库、`Contents: Read and write`；发布完成后本地 token 文件已删除，并提醒用户在 GitHub 设置中删除该 token。
+- v0.6.0 的 Release 保留不动，便于回滚。
