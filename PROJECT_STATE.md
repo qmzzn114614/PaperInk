@@ -2234,3 +2234,20 @@ v0.5.1/v0.5.2 的铅笔是「逐颗粒撒点」：每条笔生成几千～几万
 
 - 本机 `github.com` 不可达，认证需用户在网页端完成：本次采用「用户生成 classic PAT（repo 权限）→ 由 DSH 用 API 建仓/提交/发 Release」。
 - 插件市场索引托管在 jsDelivr gcore 节点（国内可达），raw.githubusercontent 直连在用户网络下不可达，App 内保留 gh-proxy 反代作为第二候选。
+
+### 38.6 上传结果（2026-11-11）
+
+| 项 | 地址 / 结果 |
+| --- | --- |
+| 源码仓库（public，main） | https://github.com/qmzzn114614/PaperInk |
+| v0.6.0 Release（APK 附件） | https://github.com/qmzzn114614/PaperInk/releases/tag/v0.6.0 |
+| APK 直链（Release 附件） | https://github.com/qmzzn114614/PaperInk/releases/download/v0.6.0/paperink-0.6.0-debug.apk |
+| 插件市场仓库（public） | https://github.com/qmzzn114614/paperink-plugins |
+| 插件市场索引（App 使用） | https://gcore.jsdelivr.net/gh/qmzzn114614/paperink-plugins@main/index.json |
+| 测试插件 Release | https://github.com/qmzzn114614/paperink-plugins/releases/tag/plugin-test-v1.0.0 |
+
+- 仓库文件数：172（源码、Gradle wrapper、docs 与截图、dist/SHA256SUMS.txt）；**APK 不打进 git 树**（单 blob 超过 API 限制），只作为 Release 附件，git 里保留 SHA256SUMS.txt。
+- Release 附件校验：paperink-0.6.0-debug.apk 49,384,533 B，GitHub digest 记录 sha256:025f3ca8070ea939df11f32ff3c8bb905b776173032d469b059b79ac36df58c7，与本地一致。
+- 插件市场索引已实测（PC）：jsDelivr 200，内容含 1 个插件「测试画星书签 1.0.0」，apkUrl 指向插件仓库 Release。
+- 上传方式：本机无 git/gh，改用 GitHub REST API（blobs → trees → commits → refs）+ Release 资产上传；Python 通过 truststore 走 Windows 证书库以绕过本机 TLS 中间证书问题。
+- 安全：本次全程使用用户临时提供的 classic PAT（repo 权限），已写入 .work/tools/ghtoken.txt（不入库）；上传完成后建议用户在 GitHub 设置中撤销该 token。
