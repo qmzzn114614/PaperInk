@@ -12,7 +12,7 @@
 </p>
 
 - 当前版本：**v0.6.0（versionCode 27）**
-- 安装包：[`dist/paperink-0.6.0-debug.apk`](dist/paperink-0.6.0-debug.apk)（debug 签名，Android 8.0+）
+- 安装包：[Releases · v0.6.0](https://github.com/qmzzn114614/PaperInk/releases/download/v0.6.0/paperink-0.6.0-debug.apk)（debug 签名，Android 8.0+；APK 作为 Release 附件发布，不进 git 仓库）
 - 开发与真机验证记录：[`PROJECT_STATE.md`](PROJECT_STATE.md)
 
 ---
@@ -122,7 +122,7 @@
 
 ## 下载与安装
 
-1. 从 GitHub Releases 页面（`https://github.com/qmzzn114614/PaperInk/releases`）下载 `paperink-0.6.0-debug.apk`；或直接取仓库里的 [`dist/paperink-0.6.0-debug.apk`](dist/paperink-0.6.0-debug.apk)（以 `dist/` 实际文件名为准）。
+1. 从 GitHub Releases 页面（`https://github.com/qmzzn114614/PaperInk/releases/tag/v0.6.0`）下载 `paperink-0.6.0-debug.apk`；仓库里只保留 `dist/SHA256SUMS.txt` 用于校验。
 2. 把 APK 传到平板（数据线 / 微信文件传输 / 网盘均可），点击安装；系统提示「未知来源」时允许本次安装。
 3. 打开 App，点书架右上角「＋」导入第一本 PDF。
 
@@ -166,9 +166,9 @@ Linux / macOS 把最后一步换成 `./gradlew assembleDebug`。
 ### 说明
 
 - 用 Android Studio 打开工程也可以：IDE 会自动生成 `local.properties`，并提示安装缺失的 SDK 组件。
-- 仓库里的 `gradle.properties` 带有开发机专用参数 `-Duser.home=D:/AndroidUserHome`；若你的机器上没有该目录、构建报错或依赖缓存位置异常，请删除该参数或改成自己的路径后再构建。
+- 仓库里的 `gradle.properties` 未写死任何开发机路径；Gradle 会使用默认的 `~/.gradle` 缓存。若需要自定义，可在本机 `gradle.properties` 里加 `-Duser.home=...`。
 - 构建 Android 仪器测试：`.\gradlew.bat assembleDebugAndroidTest`；安装到设备：`adb install -r app\build\outputs\apk\debug\app-debug.apk`。
-- 本工程的 `dist/` 保存发行用 APK，每次发版后把新 APK 放进 `dist/` 并更新 `dist/SHA256SUMS.txt`。
+- 发行时把 APK 上传到 GitHub Release（不打进 git 树，单文件约 48 MB 会超过 API/仓库友好体积），并更新仓库里的 `dist/SHA256SUMS.txt`。
 
 ---
 
@@ -189,7 +189,7 @@ PaperInk/
 ├── plugin-api/                   # 插件协议模块（AIDL + 宿主/插件共用接口）
 ├── plugin-test/                  # 示例插件（同签名，可安装热插拔）
 ├── plugin-test-untrusted/        # 拒绝加载场景的测试插件（验证签名白名单）
-├── dist/                         # 预构建 APK 与 SHA256SUMS.txt
+├── dist/                         # 发行校验文件 SHA256SUMS.txt（APK 走 GitHub Release）
 ├── docs/                         # 发布教程、插件市场方案与截图
 │   ├── GITHUB_RELEASE_GUIDE.md   # 从零发布到 GitHub 的完整教程
 │   ├── PLUGIN_MARKET.md          # 插件市场托管方案
