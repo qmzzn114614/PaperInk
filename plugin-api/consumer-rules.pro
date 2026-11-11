@@ -1,0 +1,2 @@
+-keep interface com.dsh.paperink.plugin.** { *; }
+-keep class com.dsh.paperink.plugin.** { *; }

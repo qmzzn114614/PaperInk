@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- v0.6.0：插件市场从 GitHub 拉 index.json -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+        targetSdk 30+ 的包可见性：不声明这一段，queryIntentServices 对插件永远返回空。
+        插件 APK 用同一个 action 注册 Service，宿主只认 action，不认包名。
+    -->
+    <queries>
+        <intent>
+            <action android:name="com.dsh.paperink.plugin.BIND" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".PaperInkApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PaperInk">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 文件管理器 / 其他应用「用纸墨打开」一个 PDF -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/pdf" />
+                <data android:scheme="content" />
+                <data android:scheme="file" />
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>
+

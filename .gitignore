@@ -1,0 +1,44 @@
+# ============================================================
+# 纸墨 PaperInk .gitignore
+# 说明：dist/ 与 docs/images/ 故意不忽略——前者放发行用的 APK，
+#       后者放 README 截图，两者都需要随仓库分发。
+# ============================================================
+
+# ---------- Gradle / Kotlin / Android 构建产物 ----------
+.gradle/
+build/
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ---------- 本机配置（不入库） ----------
+local.properties
+# 签名材料：任何情况下都不要提交
+*.jks
+*.keystore
+keystore.properties
+signing.properties
+
+# ---------- Android Studio / IDEA ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# ---------- 开发过程产物（本机历史截图、临时文件、构建日志） ----------
+.work/
+.probe/
+.tmp/
+.testdir_new/
+qa-root.txt
+w_test.txt
+build_migration.log
+
+# ---------- 操作系统 / 编辑器 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~

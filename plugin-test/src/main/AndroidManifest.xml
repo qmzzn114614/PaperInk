@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        插件不提供 Launcher activity，安装后不会出现在桌面；
+        宿主通过 queryIntentServices(ACTION_BIND) 发现它。
+    -->
+    <application
+        android:allowBackup="false"
+        android:label="纸墨测试插件"
+        android:supportsRtl="true">
+
+        <!--
+            android:process=":plugin" 是崩溃隔离的关键：插件跑在独立进程，
+            invoke 里 throw / killProcess 都不会带崩宿主主进程。
+        -->
+        <service
+            android:name=".PluginTestService"
+            android:exported="true"
+            android:label="纸墨测试插件服务"
+            android:process=":plugin">
+            <intent-filter>
+                <action android:name="com.dsh.paperink.plugin.BIND" />
+            </intent-filter>
+            <meta-data
+                android:name="paperink.plugin.id"
+                android:value="com.dsh.paperink.plugintest" />
+        </service>
+    </application>
+
+</manifest>

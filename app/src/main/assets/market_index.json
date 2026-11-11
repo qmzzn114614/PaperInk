@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "marketName": "纸墨插件市场（示例数据）",
+  "plugins": [
+    {
+      "id": "com.dsh.paperink.plugintest",
+      "name": "测试画星书签",
+      "description": "提供顶部面板，支持在页面上画星形自动生成书签。",
+      "version": "1.0.0",
+      "author": "PaperInk",
+      "apkUrl": "https://github.com/qmzzn114614/paperink-plugins/releases",
+      "homepage": "https://github.com/qmzzn114614/paperink-plugins",
+      "tags": ["panel", "bookmark"]
+    },
+    {
+      "id": "ink.reader.stats",
+      "name": "阅读统计",
+      "description": "记录每天读了多少页、在书上花了多少时间。",
+      "version": "0.2.0",
+      "author": "PaperInk",
+      "apkUrl": "https://github.com/qmzzn114614/paperink-plugins/releases",
+      "homepage": "https://github.com/qmzzn114614/paperink-plugins",
+      "tags": ["stats"]
+    }
+  ]
+}

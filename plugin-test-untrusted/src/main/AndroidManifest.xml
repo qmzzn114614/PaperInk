@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        故意做得和可信插件一样：同 action、同 meta-data 字段、exported=true，
+        这样只要宿主不校验签名就会误收 —— 用来验证白名单是真的生效。
+        本包用第三方 keystore 签名（见 build.gradle.kts 的 thirdParty）。
+    -->
+    <application
+        android:allowBackup="false"
+        android:label="第三方伪装插件（测试用）"
+        android:supportsRtl="true">
+
+        <service
+            android:name=".EvilPluginService"
+            android:exported="true"
+            android:label="第三方伪装插件服务"
+            android:process=":plugin">
+            <intent-filter>
+                <action android:name="com.dsh.paperink.plugin.BIND" />
+            </intent-filter>
+            <meta-data
+                android:name="paperink.plugin.id"
+                android:value="com.dsh.paperink.plugintest.evil" />
+        </service>
+    </application>
+
+</manifest>
